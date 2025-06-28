@@ -55,6 +55,27 @@ def first_deal():
    cards.remove(player_second_card)
    hit_or_stay()
 
+def dealer_turn():
+    print("\nDealer's turn:")
+    print('Dealer hand:', dealer_hand)
+    while hand_total(dealer_hand) < 17:
+        card = random.choice(cards)
+        dealer_hand.append(card)
+        cards.remove(card)
+        print('Dealer draws:', card)
+        print('Dealer hand:', dealer_hand)
+    print('Dealer total:', hand_total(dealer_hand))
+    # Now compare hands
+    if hand_total(dealer_hand) > 21:
+        print('\nDealer busts! You win!')
+    elif hand_total(player_hand) > hand_total(dealer_hand):
+        print('\nYou Win!!!!')
+    elif hand_total(player_hand) < hand_total(dealer_hand):
+        print('\nYou Lose!')
+    else:
+        print('Push!')
+    start()
+
 def hit_or_stay():
    d = input('\nhit or stay?: ')
    if d.lower() == 'hit':
@@ -72,6 +93,7 @@ def hit_or_stay():
           print('\nBust!')
           start()
    elif d.lower() == 'stay':
+       dealer_turn()
        if hand_total(player_hand) > hand_total(dealer_hand):
           print('\nYou Win!!!!')
           start()
